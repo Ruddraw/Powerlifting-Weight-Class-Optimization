@@ -41,8 +41,21 @@ ggplot(weight_class_count, aes(x = reorder(WeightClassKg, n), y = n)) +
        title = "Number of Competitors per Weight Class") +
   theme_minimal() +  # Use a minimal theme for cleaner appearance
   theme(
-    #axis.text.x = element_text(angle = 45, hjust = 1),  # Rotate x-axis text for readability
     axis.text.y = element_text(size = 10),  # Adjust y-axis text size for better readability
     plot.title = element_text(hjust = 0.5)  # Center the plot title
   )
 
+# Create the side-by-side horizontal bar chart for comparing the male and female competitor
+gender_weight_class_count <- final_df %>% 
+  count(WeightClassKg, Sex)
+
+ggplot(gender_weight_class_count, aes(x = reorder(WeightClassKg, n), y = n, fill = Sex)) +
+  geom_bar(stat = "identity", position = "dodge") +  # Position bars side by side
+  coord_flip() +  # Flip coordinates to make the bars horizontal
+  labs(x = "Weight Class (kg)", y = "Number of Competitors", 
+       title = "Number of Competitors per Weight Class by Gender") +
+  theme_minimal() +  # Use a minimal theme for cleaner appearance
+  theme(
+    axis.text.y = element_text(size = 10),  # Adjust y-axis text size for better readability
+    plot.title = element_text(hjust = 0.5)  # Center the plot title
+  )
