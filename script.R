@@ -26,7 +26,7 @@ male_data <- final_df %>%
 #female
 female_data <- final_df %>% 
   filter(final_df$Sex == "F")
-View(female_data)
+#View(female_data)
 
 
 #number of weight classes
@@ -59,3 +59,53 @@ ggplot(gender_weight_class_count, aes(x = reorder(WeightClassKg, n), y = n, fill
     axis.text.y = element_text(size = 10),  # Adjust y-axis text size for better readability
     plot.title = element_text(hjust = 0.5)  # Center the plot title
   )
+
+
+
+
+#highest and lowest number of competitor for each weight class
+# male
+# Count the number of competitors for each weight class for males
+male_weight_class_count <- male_data %>%
+  count(WeightClassKg) %>%
+  arrange(desc(n))
+
+# Highest weight class for males
+highest_male_weight_class <- male_weight_class_count %>%
+  arrange(desc(n)) %>%
+  slice(1)
+
+# Lowest weight class for males
+lowest_male_weight_class <- male_weight_class_count %>%
+  arrange(n) %>%
+  slice(1)
+
+# View results
+print(highest_male_weight_class)
+print(lowest_male_weight_class)
+
+# female
+female_weight_class_count <- female_data %>% 
+  count(WeightClassKg) %>% 
+  arrange(desc(n))
+
+# Highest weight class for males
+highest_female_weight_class <- female_weight_class_count %>% 
+  arrange(desc(n)) %>% 
+  slice(1)
+# Lowest weight class for males
+lowest_female_weight_class <- female_weight_class_count %>%
+  arrange(n) %>%
+  slice(1)
+
+# View results
+print(highest_female_weight_class)
+print(lowest_female_weight_class)
+
+#do we need a trend??!!!!!
+
+
+
+
+#wining weight to body weight class ration
+
