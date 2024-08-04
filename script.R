@@ -109,3 +109,18 @@ print(lowest_female_weight_class)
 
 #wining weight to body weight class ration
 
+# Rank competitors within each division and weight class
+ranked_df <- final_df %>%
+  group_by(Division, WeightClassKg) %>%
+  arrange(Division, WeightClassKg, Place) %>%
+  mutate(Rank = row_number()) %>%
+  filter(Rank <= 3) %>%
+  ungroup()
+
+# Summarize total weight lifted by rank
+weight_class_summary <- ranked_df %>%
+  group_by(Division, WeightClassKg, Rank) %>%
+  summarize(TotalWeightLifted = sum(TotalKg, na.rm = TRUE), .groups = 'drop')
+
+# View the summary
+View(weight_class_summary)
