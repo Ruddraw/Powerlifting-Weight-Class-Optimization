@@ -14,9 +14,11 @@ colnames(powerlift_data)
 
 final_df <- powerlift_data %>% 
   select(Name, Sex, Age, Division, BodyweightKg, WeightClassKg, BestSquatKg, 
-         BestBenchKg, BestDeadliftKg, TotalKg, Place)
+         BestBenchKg, BestDeadliftKg, TotalKg, Place) %>% 
+  filter(!is.na(Division) & !is.na(WeightClassKg) & !is.na(TotalKg))
 
-head(final_df)
+View(final_df)
+unique(final_df$Division)
 
 #separate the male and female
 #male
@@ -124,3 +126,5 @@ weight_class_summary <- ranked_df %>%
 
 # View the summary
 View(weight_class_summary)
+
+
