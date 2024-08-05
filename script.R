@@ -1,4 +1,5 @@
 #load required packages
+library(tidyr)
 library(readr)
 library(kaggler)
 library(dplyr)
@@ -15,10 +16,13 @@ colnames(powerlift_data)
 final_df <- powerlift_data %>% 
   select(Name, Sex, Age, Division, BodyweightKg, WeightClassKg, BestSquatKg, 
          BestBenchKg, BestDeadliftKg, TotalKg, Place) %>% 
-  filter(!is.na(Division) & !is.na(WeightClassKg) & !is.na(TotalKg))
+  filter(!is.na(Name) & !is.na(Sex) & !is.na(Age) & !is.na(Division) & 
+           !is.na(BodyweightKg) & !is.na(WeightClassKg) & !is.na(BestSquatKg) &
+           !is.na(BestBenchKg) & !is.na(BestDeadliftKg) & !is.na(TotalKg) & 
+           !is.na(Place))
 
 View(final_df)
-unique(final_df$Division)
+
 
 #separate the male and female
 #male
@@ -109,22 +113,17 @@ print(lowest_female_weight_class)
 
 
 
-#wining weight to body weight class ration
+#wining weight to body weight class ratio
+# Define the function
+get_top_places <- function(df, Division, WeightClassKg) {
+  df %>%
+    arrange(desc(TotalKg)) %>%
+    slice(1:3) %>%
+    select(TotalKg)
+}
 
-# Rank competitors within each division and weight class
-ranked_df <- final_df %>%
-  group_by(Division, WeightClassKg) %>%
-  arrange(Division, WeightClassKg, Place) %>%
-  mutate(Rank = row_number()) %>%
-  filter(Rank <= 3) %>%
-  ungroup()
-
-# Summarize total weight lifted by rank
-weight_class_summary <- ranked_df %>%
-  group_by(Division, WeightClassKg, Rank) %>%
-  summarize(TotalWeightLifted = sum(TotalKg, na.rm = TRUE), .groups = 'drop')
-
-# View the summary
-View(weight_class_summary)
-
+# Example usage
+# Assuming you have the final_df dataset already
+result <- get_top_places(final_df, "Amateur Junior 20-23", 82.5)
+print(result)
 
