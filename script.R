@@ -115,15 +115,17 @@ print(lowest_female_weight_class)
 
 #wining weight to body weight class ratio
 # Define the function
-get_top_places <- function(df, Division, WeightClassKg) {
+get_top_places <- function(df, division_input, weight_class_input) {
   df %>%
+    filter(Division == division_input, WeightClassKg == weight_class_input) %>%
     arrange(desc(TotalKg)) %>%
     slice(1:3) %>%
-    select(TotalKg)
+    mutate(Place = row_number()) %>%  # Add place column
+    select(WeightClassKg, TotalKg, Place) %>%
+    arrange(Place)  # Arrange by Place for a cleaner output
 }
 
 # Example usage
-# Assuming you have the final_df dataset already
-result <- get_top_places(final_df, "Amateur Junior 20-23", 82.5)
+result <- get_top_places(final_df, "Open Senior", 67.5)
 print(result)
 
