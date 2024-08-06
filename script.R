@@ -49,17 +49,6 @@ female_data <- final_df %>%
 weight_class_count <- final_df %>% 
   count(WeightClassKg)
 
-# Horizontal Bar chart
-ggplot(weight_class_count, aes(x = reorder(WeightClassKg, n), y = n)) +
-  geom_bar(stat = "identity", fill = "steelblue") +  
-  coord_flip() +  # Flip coordinates to make the bars horizontal
-  labs(x = "Weight Class (kg)", y = "Number of Competitors", 
-       title = "Number of Competitors per Weight Class") +
-  theme_minimal() +  # Use a minimal theme for cleaner appearance
-  theme(
-    axis.text.y = element_text(size = 10),  # Adjust y-axis text size for better readability
-    plot.title = element_text(hjust = 0.5)  # Center the plot title
-  )
 
 # Create the side-by-side horizontal bar chart for comparing the male and female competitor
 gender_weight_class_count <- final_df %>% 
@@ -118,12 +107,12 @@ lowest_female_weight_class <- female_weight_class_count %>%
 print(highest_female_weight_class)
 print(lowest_female_weight_class)
 
-#do we need a trend??!!!!!
 
 
 
 
-#wining weight to body weight class ratio
+
+#wining weight to body weight class ratio 
 # Define the function
 get_top_places <- function(df, division_input, weight_class_input) {
   df %>%
@@ -187,7 +176,7 @@ ggplot(female_data, aes(x = AgeGroup, y = TotalKg, fill = AgeGroup)) +
     aes(label = round(..y.., 1))  # Label with rounded mean values
   ) +
   labs(x = "Age Group", y = "Total Weight Lifted (kg)", 
-       title = "Distribution of Total Weight Lifted by Male Age Group") +
+       title = "Distribution of Total Weight Lifted by Feale Age Group") +
   theme_minimal() +
   theme(
     plot.title = element_text(hjust = 0.5)  # Center the plot title
