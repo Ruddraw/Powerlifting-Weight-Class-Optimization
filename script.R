@@ -21,12 +21,22 @@ final_df <- powerlift_data %>%
            !is.na(BestBenchKg) & !is.na(BestDeadliftKg) & !is.na(TotalKg) & 
            !is.na(Place))
 
+# Define age groups
+final_df <- final_df %>%
+  mutate(AgeGroup = case_when(
+    Age < 20 ~ "Teen",
+    Age >= 20 & Age < 40 ~ "Open",
+    Age >= 40 & Age < 60 ~ "Master 40-59",
+    Age >= 60 ~ "Master 60+",
+    TRUE ~ "Unknown"
+  ))
+
 View(final_df)
 
 
 #separate the male and female
 #male
-male_data <- final_df %>% 
+ male_data <- final_df %>% 
   filter(final_df$Sex == "M")
 
 #female
@@ -121,11 +131,67 @@ get_top_places <- function(df, division_input, weight_class_input) {
     arrange(desc(TotalKg)) %>%
     slice(1:3) %>%
     mutate(Place = row_number()) %>%  # Add place column
-    select(WeightClassKg, TotalKg, Place) %>%
+    select(WeightClassKg, BestBenchKg, BestSquatKg, BestDeadliftKg, TotalKg, Place) %>%
     arrange(Place)  # Arrange by Place for a cleaner output
 }
 
 # Example usage
-result <- get_top_places(final_df, "Open Senior", 67.5)
+result <- get_top_places(male_data, "Amateur Junior (20-23)", 67.5)
 print(result)
+
+
+
+
+# Box plot for total weight lifted by male age group 
+ggplot(male_data, aes(x = AgeGroup, y = TotalKg, fill = AgeGroup)) +
+  geom_boxplot(outlier.colour = "black", outlier.size = 2) +  # Box plot with outliers
+  stat_summary(
+    fun = mean,  # Function to calculate mean
+    geom = "point",  # Geometric object to use for mean values
+    color = "black",  # Color of the mean points
+    size = 3,  # Size of the mean points
+    shape = 18  # Shape of the mean points
+  ) +
+  stat_summary(
+    fun = mean,  # Function to calculate mean
+    geom = "text",  # Geometric object to use for mean values
+    color = "black",  # Color of the text labels
+    size = 3,  # Size of the text labels
+    vjust = -1,  # Vertical adjustment of the text labels
+    aes(label = round(..y.., 1))  # Label with rounded mean values
+  ) +
+  labs(x = "Age Group", y = "Total Weight Lifted (kg)", 
+       title = "Distribution of Total Weight Lifted by Male Age Group") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5)  # Center the plot title
+  )
+
+
+# box plot for total weight lifted my female age group 
+ggplot(female_data, aes(x = AgeGroup, y = TotalKg, fill = AgeGroup)) +
+  geom_boxplot(outlier.colour = "black", outlier.size = 2) +  # Box plot with outliers
+  stat_summary(
+    fun = mean,  # Function to calculate mean
+    geom = "point",  # Geometric object to use for mean values
+    color = "black",  # Color of the mean points
+    size = 3,  # Size of the mean points
+    shape = 18  # Shape of the mean points
+  ) +
+  stat_summary(
+    fun = mean,  # Function to calculate mean
+    geom = "text",  # Geometric object to use for mean values
+    color = "black",  # Color of the text labels
+    size = 3,  # Size of the text labels
+    vjust = -1,  # Vertical adjustment of the text labels
+    aes(label = round(..y.., 1))  # Label with rounded mean values
+  ) +
+  labs(x = "Age Group", y = "Total Weight Lifted (kg)", 
+       title = "Distribution of Total Weight Lifted by Male Age Group") +
+  theme_minimal() +
+  theme(
+    plot.title = element_text(hjust = 0.5)  # Center the plot title
+  )
+
+
 
