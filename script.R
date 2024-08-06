@@ -193,5 +193,13 @@ ggplot(female_data, aes(x = AgeGroup, y = TotalKg, fill = AgeGroup)) +
     plot.title = element_text(hjust = 0.5)  # Center the plot title
   )
 
+# ANOVA to test if there are significant differences in performance between age groups
+anova_result <- aov(TotalKg ~ AgeGroup, data = male_data)
+summary(anova_result)
+
+# post-hoc test
+tukey_result <- TukeyHSD(anova_result)
+print(tukey_result)
+
 
 
