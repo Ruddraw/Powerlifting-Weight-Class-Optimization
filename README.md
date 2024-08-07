@@ -22,10 +22,34 @@ The data used in this project is sourced from the [Open Powerlifting dataset](ht
 
 1. **Competitor Distribution:**
    - **Weight Class Counts:** Visualized using bar charts to show the number of competitors in each weight class, separated by gender.
-   - **Highest and Lowest Competitor Counts:** Identified the weight classes with the highest and lowest number of competitors for both males and females.
+     
+![Number of Competitors per Weight Class by Gender](plots/competitor_count.png) 
 
-![Number of Competitors per Weight Class by Gender](plots/count.png)
-![Boxplot for AQI by region](plots/count.png)
+   - **Highest and Lowest Competitor Counts:** Identified the weight classes with the highest and lowest number of competitors for both males and females.
+     
+     ```
+     Weight Class Statistics
+
+       Male
+      
+      | Metric             | WeightClassKg | Count |
+      |--------------------|---------------|-------|
+      | Highest Count      | 100           | 8142  |
+      | Lowest Count       | 63            | 1     |
+      
+       Female
+      
+      | Metric             | WeightClassKg | Count |
+      |--------------------|---------------|-------|
+      | Highest Count      | 67.5          | 4357  |
+      | Lowest Count       | 100+          | 1     |
+     
+     ```
+2. **Performance Comparison by Age Group:**
+   - **Box Plots:** Show the total weight distribution lifted across different age groups, with mean values annotated.
+![Number of Competitors per Weight Class by Gender](plots/.png) 
+
+
 
 
 
