@@ -47,7 +47,7 @@ The data used in this project is sourced from the [Open Powerlifting dataset](ht
      ```
 2. **Performance Comparison by Age Group:**
    - **Box Plots:** Show the total weight distribution lifted across different age groups, with mean values annotated.
-![Number of Competitors per Weight Class by Gender](plots/.png) 
+![Distribution of Total Weight Lifted by Male Age Group](plots/Distribution%20of%20Total%20Weight%20Lifted%20by%20Male%20Age%20Group.png) ![Distribution of Total Weight Lifted by female Age Group](plots/Distribution%20of%20Total%20Weight%20Lifted%20by%20Feale%20Age%20Group.png) 
 
 
 
